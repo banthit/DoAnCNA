@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name"></string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string-array name="array_book">
+        <item>cua</item>
+        <item>chim</item>
+        <item>gau</item>
+        <item>chim bang</item>
+        <item>chim dien</item>
+        <item>chim lua</item>
+        <item>luon</item>
+        <item>luon lv2</item>
+    </string-array>
+</resources>
