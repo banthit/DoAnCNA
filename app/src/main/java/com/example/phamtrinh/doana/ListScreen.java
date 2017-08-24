@@ -7,6 +7,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,9 +35,12 @@ import android.widget.AdapterView;
 
 public class ListScreen extends Fragment implements ResAsyncJSON{
     private FragmentListener listener;
+
     private FragmentData listenerData;
     ArrayList<books> bookss;
-    GridView gridViewList;
+    RecyclerView recyclerView;
+    RecycleListBookAdapter adapter;
+    RecyclerView.LayoutManager layoutManager;
     ConnServer connServer = new ConnServer();
 
 
@@ -58,8 +63,11 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
         // code
 
         new GetJSON(this).execute(connServer.host+"books");
-
-        gridViewList = (GridView)view.findViewById(R.id.gridViewList);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerviewlistbook);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+//        gridViewList = (GridView)view.findViewById(R.id.gridViewList);
 
 
 
@@ -77,7 +85,8 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
                 bookss.add(new books(
                         jsonObject.getString("tensach"),
                         jsonObject.getString("hinhsach"),
-                        jsonObject.getString("noidung")
+                        jsonObject.getString("noidung"),
+                        jsonObject.getString("tacgia")
                 ));
             }
 
@@ -89,32 +98,52 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
         final String[] name = new String[bookss.size()];
         String[] image = new String[bookss.size()];
         final String[] noidung = new String[bookss.size()];
-
+        final String [] tacgia = new String[bookss.size()];
         for(int i = 0; i < bookss.size();i++){
 
             image[i] = bookss.get(i).hinhsach;
             name[i] = bookss.get(i).tensach;
             noidung[i] = bookss.get(i).noidung;
+            tacgia[i] = bookss.get(i).tacgia;
+
 
         }
 
+
         listenerData.transDataArray(name);
 
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(getActivity(),name,image, noidung);
-        gridViewList.setAdapter(gridViewAdapter);
-        gridViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        listenerData.transDataArray(noidung);
+
+        adapter = new RecycleListBookAdapter(getActivity(),name,image,noidung,tacgia);
+        adapter.setmItemClickListener(new RecyclerViewListBookClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(View view, int position) {
                 listenerData.transDataString(noidung[position]);
-
+//                Toast.makeText(getContext(), "Position " + noidung[position], Toast.LENGTH_SHORT).show();
             }
         });
+        recyclerView.setAdapter(adapter);
+
+
+
+
+//        GridViewAdapter gridViewAdapter = new GridViewAdapter(getActivity(),name,image, noidung);
+//        gridViewList.setAdapter(gridViewAdapter);
+//        gridViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                listenerData.transDataString(noidung[position]);
+//
+//            }
+//        });
+
 
 
 
 
     }
+
 
 
 }

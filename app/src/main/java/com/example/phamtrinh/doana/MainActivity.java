@@ -25,12 +25,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     FragmentManager fragmentManager = getFragmentManager();
     private FragmentListener listener;
 
-
     private DrawerLayout mDrawerLayout;
-    private NavigationView nvDrawer;
 
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
+    private MenuItem itemNoti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         cs.mSocket.connect();
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setNavigationIcon(R.drawable.ic_search_black_24dp);
+
 
         setSupportActionBar(toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
 
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment seclectScreen = null;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_item_home:
                         seclectScreen = new ListScreen();
                         break;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                         seclectScreen = new UserScreen();
                         break;
                 }
-                toolbar.setNavigationIcon(R.drawable.ic_search_black_24dp);
+
 
                 FragmentTransaction fragmentTransactionList = fragmentManager.beginTransaction();
                 fragmentTransactionList.replace(R.id.frameContent, seclectScreen);
@@ -75,19 +74,22 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         });
 
 
-
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.action_bar,menu);
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        itemNoti = menu.findItem(R.id.action_noti);
+        itemNoti.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.action_noti){
+        if (item.getItemId() == R.id.action_noti) {
+
             mDrawerLayout.openDrawer(Gravity.RIGHT);
             return true;
         }
@@ -96,12 +98,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     }
 
 
-
-
-
-
-
-    public void addListScreen(){
+    public void addListScreen() {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.frameContent, new ListScreen());
@@ -110,12 +107,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     }
 
 
-
-
-
     @Override
     public void changeFragment(int id) {
-        switch(id){
+        switch (id) {
             case 1:
 
                 FragmentTransaction fragmentTransactionList = fragmentManager.beginTransaction();
@@ -132,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             case 3:
 
                 FragmentTransaction fragmentTransactionSearch = fragmentManager.beginTransaction();
-                fragmentTransactionSearch.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right);
+                fragmentTransactionSearch.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
                 fragmentTransactionSearch.replace(R.id.frameContent, new SearchScreen());
                 fragmentTransactionSearch.addToBackStack("searchscreen");
                 fragmentTransactionSearch.commit();
@@ -148,14 +142,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
 
         }
     }
+
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount() > 0)
-        {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
             toolbar.setNavigationIcon(R.drawable.ic_search_black_24dp);
 
             getFragmentManager().popBackStack();
-        }else {
+        } else {
 
             super.onBackPressed();
 
@@ -166,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     public void transDataString(String dataString) {
 
         Bundle bundle = new Bundle();
-        bundle.putString("databook",dataString);
+        bundle.putString("databook", dataString);
         ReadBook readBook = new ReadBook();
         readBook.setArguments(bundle);
         FragmentTransaction fragmentTransactionRead = fragmentManager.beginTransaction();
@@ -179,25 +173,23 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
 
     @Override
     public void transDataArray(final String[] dataArr) {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                toolbar.setNavigationIcon(null);
-
-                Bundle bundle = new Bundle();
-                bundle.putStringArray("dataname",dataArr);
-                SearchScreen searchScreen = new SearchScreen();
-                searchScreen.setArguments(bundle);
-                FragmentTransaction fragmentTransactionSearch = fragmentManager.beginTransaction();
-                fragmentTransactionSearch.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right);
-                fragmentTransactionSearch.replace(R.id.frameContent, searchScreen);
-                fragmentTransactionSearch.addToBackStack("searchscreen");
-                fragmentTransactionSearch.commit();
-            }
-        });
-
-
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                toolbar.setNavigationIcon(null);
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putStringArray("dataname",dataArr);
+//                SearchScreen searchScreen = new SearchScreen();
+//                searchScreen.setArguments(bundle);
+//                FragmentTransaction fragmentTransactionSearch = fragmentManager.beginTransaction();
+//                fragmentTransactionSearch.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right);
+//                fragmentTransactionSearch.replace(R.id.frameContent, searchScreen);
+//                fragmentTransactionSearch.addToBackStack("searchscreen");
+//                fragmentTransactionSearch.commit();
+//            }
+//        });
 
 
     }

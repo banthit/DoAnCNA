@@ -7,5 +7,13 @@
     android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true">
 
+    <ImageButton
+        android:id="@+id/image_button_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|start"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_search_black_24dp" />
+
 
 </android.support.v7.widget.Toolbar>

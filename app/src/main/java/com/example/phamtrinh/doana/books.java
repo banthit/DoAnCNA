@@ -8,10 +8,12 @@ public class books {
     public String tensach;
     public String hinhsach;
     public String noidung;
-    public books(String tensach, String hinhsach,String noidung){
+    public String tacgia;
+    public books(String tensach, String hinhsach,String noidung, String tacgia){
         this.tensach = tensach;
         this.hinhsach = hinhsach;
         this.noidung = noidung;
+        this.tacgia = tacgia;
 
     }
 

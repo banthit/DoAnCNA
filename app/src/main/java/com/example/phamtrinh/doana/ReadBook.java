@@ -46,7 +46,7 @@ public class ReadBook extends Fragment implements ResAsyncPDF {
 
 
         String data = getArguments().getString("databook");
-
+        Log.i("asdasdsa", data);
         new GetPDF(this).execute(connServer.host+"books/"+data+".pdf");
 
 
