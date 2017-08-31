@@ -5,5 +5,5 @@ package com.example.phamtrinh.doana;
  */
 
 public interface ResAsyncJSON {
-    void finish(String ouput);
+    void finish(String output);
 }

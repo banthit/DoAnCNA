@@ -7,11 +7,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +75,18 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
 
 
     }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//
+//        MenuItem itemSearch = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemSearch);
+//        searchView.setOnQueryTextListener((SearchView.OnQueryTextListener) getActivity());
+//
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+
+
 
 
     @Override
@@ -110,8 +125,8 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
         }
 
 
-        listenerData.transDataArray(name);
-
+//        listenerData.transDataArray(name);
+//        listenerData.transDataArrayList(bookss);
 //        listenerData.transDataArray(noidung);
 
         adapter = new RecycleListBookAdapter(getActivity(),name,image,noidung,tacgia);
@@ -124,19 +139,6 @@ public class ListScreen extends Fragment implements ResAsyncJSON{
         });
         recyclerView.setAdapter(adapter);
 
-
-
-
-//        GridViewAdapter gridViewAdapter = new GridViewAdapter(getActivity(),name,image, noidung);
-//        gridViewList.setAdapter(gridViewAdapter);
-//        gridViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                listenerData.transDataString(noidung[position]);
-//
-//            }
-//        });
 
 
 

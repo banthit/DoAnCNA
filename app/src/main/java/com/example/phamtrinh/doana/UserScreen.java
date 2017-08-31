@@ -54,15 +54,15 @@ public class UserScreen extends Fragment {
 //        }
 //        return datas;
 //    }
-private void setUpRecycleViewList(){
-    recyclerView.setHasFixedSize(true);
-    LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-    recyclerView.setLayoutManager(linearLayoutManager);
+    private void setUpRecycleViewList(){
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-    ArrayList<User_Data> user_datas= new ArrayList<>();
-    user_datas.add(new User_Data(getResources().getDrawable(R.drawable.ic_account_box_black_24dp),"Carol Pierce"));
-    user_datas.add(new User_Data(getResources().getDrawable(R.drawable.ic_mail_outline_black_24dp),"Carol_Pierce@gmail.com"));
-    User_Adapter adapter = new User_Adapter(user_datas,getContext());
-    recyclerView.setAdapter(adapter);
-}
+        ArrayList<User_Data> user_datas= new ArrayList<>();
+        user_datas.add(new User_Data(getResources().getDrawable(R.drawable.ic_account_box_black_24dp),"Carol Pierce"));
+        user_datas.add(new User_Data(getResources().getDrawable(R.drawable.ic_mail_outline_black_24dp),"Carol_Pierce@gmail.com"));
+        User_Adapter adapter = new User_Adapter(user_datas,getContext());
+        recyclerView.setAdapter(adapter);
+    }
 }

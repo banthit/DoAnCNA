@@ -60,9 +60,7 @@ public class RecycleListBookAdapter extends RecyclerView.Adapter<RecycleListBook
         return tensach.length;
     }
 
-//    public void setClickListener(RecyclerViewListBookClickListener mListener){
-//        this.mListener = mListener;
-//    }
+
     public static class MyListBookHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private RecyclerViewListBookClickListener mItemClickListener;
         CircleImageView img_book;
@@ -77,7 +75,6 @@ public class RecycleListBookAdapter extends RecyclerView.Adapter<RecycleListBook
             itemView.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View v) {
             if(mItemClickListener != null){
@@ -86,4 +83,5 @@ public class RecycleListBookAdapter extends RecyclerView.Adapter<RecycleListBook
             }
         }
     }
+
 }
