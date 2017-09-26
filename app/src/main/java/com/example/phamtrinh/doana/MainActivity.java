@@ -114,29 +114,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             return true;
         }
         if(item.getItemId()==R.id.action_login){
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-            View mView = getLayoutInflater().inflate(R.layout.popup_login,null);
-            mBuilder.setView(mView);
-            final AlertDialog dialog = mBuilder.create();
-            dialog.show();
-            final EditText mEmail = (EditText) mView.findViewById(R.id.edEmail);
-            final EditText mPassword= (EditText) mView.findViewById(R.id.edPassword);
-            Button mLogin = (Button) mView.findViewById(R.id.btnLogin);
-            mLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!mEmail.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty()){
-                        Toast.makeText(MainActivity.this,"Dang nhap thanh cong", Toast.LENGTH_SHORT).show();
-                        dialog.hide();
-                        itemNoti.setVisible(true);
-                        itemLogin.setVisible(false);
-                    }else {
-                        Toast.makeText(MainActivity.this,"Dang nhhap sai",Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
-
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frameContent, new LoginScreen());
+            fragmentTransaction.addToBackStack("login");
+            fragmentTransaction.commit();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
