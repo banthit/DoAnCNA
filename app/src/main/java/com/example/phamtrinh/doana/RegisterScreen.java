@@ -17,6 +17,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
  * Created by DELL on 9/13/2017.
  */
@@ -29,7 +37,7 @@ public class RegisterScreen extends Fragment {
     public RegisterScreen() {
         // Required empty public constructor
     }
-
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -52,13 +60,50 @@ public class RegisterScreen extends Fragment {
                     String reEnter_Password = reEnterPassword.getText().toString().trim();
                     String email = enterEmail.getText().toString().trim();
 
+                Log.i("TEST", username + "|" + password + "|" + email);
 
-                    new PostToServer(username,password,email).execute(connServer.host+"user");
+
+//                    new PostToServer(username,password,email).execute(connServer.host+"user");
                 //Register
+                OkHttpClient client = new OkHttpClient();
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("email", email);
+                    object.put("username", username);
+                    object.put("password", password);
+
+                    MyOkHttp.POST("/user", String.valueOf(object), new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Log.i("RES", response.body().string().toString());
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         return view;
     }
+
+    Call post(OkHttpClient client, String url, JSONObject json, Callback callback) {
+        RequestBody body = RequestBody.create(JSON, String.valueOf(json));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .addHeader("Content-Type", " application/x-www-form-urlencoded")
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
     @Override
     public void onResume() {
         super.onResume();

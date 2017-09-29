@@ -19,7 +19,7 @@ import java.net.URLConnection;
 
 public class ConnServer {
 
-    public String host = "http://172.20.10.6:3000/";
+    public String host = "http://10.102.66.216:3000/";
 
     public Socket mSocket;
     {
